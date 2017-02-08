@@ -1,0 +1,60 @@
+#+TITLE: Mirror Operations Assistance Tool
+#+LATEX: \pagebreak
+
+* Overview
+
+  ~moat~ is a tool for mirroring release content for offline installation.
+
+* Why does this exist?
+
+  To simplify mirror construction. In the specific case of the software this was
+  built to support, this involves a mix of docker images and downloaded bits
+  which vary with each release.
+
+* Concepts
+
+  Set =RELEASE_ORIGIN= in your environment to the root of the upstream content
+  source.
+
+  A mirror host provides a =meta/release.list= that includes a list of all
+  available releases. These should be sorted chronologically, with the most
+  recent last.
+
+  For a given release, there should be a =meta/<release>/list.list= containing a
+  list of available lists. The format is deliberately simple and script-friendly:
+
+  Each line describes a type and a path to that list (relative to the parent of
+  =meta=), separated by whitespace.
+
+  Additional lists should be formatted similarly, with more or less fields as
+  the situation requires. ~moat~ has special handling for =downloads= and
+  =images= (though only when invoked with =--downloads= or =--images= ).
+
+* Usage
+
+  #+BEGIN_SRC text
+    moat --help
+  #+END_SRC
+
+  #+BEGIN_EXAMPLE
+    Mirror Operations Assistance Tool v1.0.0
+
+    usage: moat.sh <command>
+
+    Commands:
+
+      -r | --releases               Print available releases
+      -L | --lists <release>        Print available lists for <release>
+      -l | --list <release> <type>  Print contents of <type> list for <release>
+      -i | --images <release>       Print images for <release>
+      -d | --downloads <release>    Print downloads for <release>
+      -s | --script <release>       Print a simple script to mirror <release>
+  #+END_EXAMPLE
+
+* License
+
+  ~moat~ is available under the [[https://tldrlegal.com/license/mit-license][MIT License]]. See ~LICENSE.txt~ for the full text.
+
+* Contributors
+
+  - [[https://colstrom.github.io/][Chris Olstrom]] | [[mailto:chris@olstrom.com][e-mail]] | [[https://twitter.com/ChrisOlstrom][Twitter]]
